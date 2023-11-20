@@ -1,0 +1,16 @@
+Creating table payments
+
+CREATE TABLE payments(
+    id int PRIMARY KEY NOT NULL,
+    email VARCHAR(255),
+    name VARCHAR(255),
+    surname VARCHAR(255),
+    offersid int,
+    lessondate DATETIME,
+    purchasedate DATETIME,
+    CONSTRAINT FK_payments_offers FOREIGN KEY(offersid) REFERENCES offers(id)
+);
+
+Select query to return top 3 private lessons depending on count of payments
+
+SELECT offers.*, COUNT(payments.id) AS cnt FROM payments JOIN offers ON offers.id = payments.offersid GROUP BY payments.offersid ORDER BY cnt DESC LIMIT 3
